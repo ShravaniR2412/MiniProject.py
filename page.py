@@ -38,11 +38,11 @@ learn_more_button = Button(navbar, text="Learn More", command=on_learn_more)
 learn_more_button.pack(side=LEFT, padx=10)
 
 # Image
-# img_path = "login.png"  # Replace with the actual path to your image
-# img = PhotoImage(file=img_path)
+img_path = "login.png"  # Replace with the actual path to your image
+img = PhotoImage(file=img_path)
 
-# image_label = Label(root, image=img)
-# image_label.pack()
+image_label = Label(root, image=img)
+image_label.pack()
 
 # Run the Tkinter event loop
 root.mainloop()
