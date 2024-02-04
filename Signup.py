@@ -1,17 +1,36 @@
 from tkinter import *
 from tkinter import messagebox
+import mysql.connector
 
+
+db = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="shravani0212",
+    database="login"
+)
+
+cursor = db.cursor()
 def sign_up():
-    email_value = email.get()
-    username_value = user.get()
-    password_value = code.get()
-    contact_value = contact.get()
+    try:
+        username = user.get()
+        password = code.get()
+        email=emailid.get()
+        contact_no=contact.get()
 
-    # Replace this with your authentication logic
-    if username_value == "user" and password_value == "password" and email_value == "email" and contact_value == "contact":
-        messagebox.showinfo("SignUp Successful", "Welcome, " + username_value + "!")
-    else:
-        messagebox.showerror("Login Failed", "Invalid username, password, email, or contact number")
+        # Insert user data into the database
+        query = "INSERT INTO login (username, password,email,contact_no) VALUES (%s, %s,%s,%s);"
+        cursor.execute(query, (username, password,email,contact_no))
+
+        # Commit the changes to the database
+        db.commit()
+
+        messagebox.showinfo("Registration Successful", "Welcome, " + username + "!")
+
+    except mysql.connector.Error as err:
+        # Handle database errors
+        messagebox.showerror("Registration Failed", "Error: {}".format(err))
+
 
 def on_enter(e):
     e.widget.delete(0, 'end')
@@ -26,22 +45,23 @@ root.geometry('925x500+300+200')
 root.configure(bg="#fff")
 root.resizable(False, False)
 
-img = PhotoImage(file='./images/login.png')
+# img = PhotoImage(file='./images/login.png')
+img = PhotoImage(file='login.png')
 Label(root, image=img, bg='white').place(x=50, y=50)
 
-frame = Frame(root, width=350, height=350, bg="white")
+frame = Frame(root, width=500, height=550, bg="white")
 frame.place(x=480, y=70)
 
 heading = Label(frame, text='Sign Up', fg='#57a1f8', bg='white', font=('Microsoft YaHei UI Light', 23, 'bold'))
 heading.place(x=100, y=5)
 
 # Email Entry
-email = Entry(frame, width=25, fg='black', border=0, bg="white", font=('Microsoft yaHei UI Light', 11))
-email.place(x=30, y=80)
-email.insert(0, 'Email')
-email.placeholder = 'Email'
-email.bind("<FocusIn>", on_enter)
-email.bind("<FocusOut>", on_leave)
+emailid = Entry(frame, width=25, fg='black', border=0, bg="white", font=('Microsoft yaHei UI Light', 11))
+emailid.place(x=30, y=80)
+emailid.insert(0, 'Email')
+emailid.placeholder = 'Email'
+emailid.bind("<FocusIn>", on_enter)
+emailid.bind("<FocusOut>", on_leave)
 
 # Username Entry
 user = Entry(frame, width=25, fg='black', border=0, bg="white", font=('Microsoft yaHei UI Light', 11))
