@@ -70,7 +70,7 @@ def set_bg_image():
     bg_label.image = photo
 
     # Add a label at the top with the welcome message
-    welcome_label = tk.Label(bg_label, text="TOUR-BUDDY: Your seamless travel companion", font=('Courier New', 23, 'bold'), fg='white', bg='#016A70', bd=10, relief=tk.GROOVE)
+    welcome_label = tk.Label(bg_label, text="TRAVEL-BUDDY: Your seamless travel companion", font=('Courier New', 23, 'bold'), fg='white', bg='#016A70', bd=10, relief=tk.GROOVE)
     welcome_label.place(relx=0.5, rely=0.15, anchor=tk.CENTER)
 
     # Add a search box below the welcome message
