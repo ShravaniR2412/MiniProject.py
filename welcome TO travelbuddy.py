@@ -2,16 +2,16 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
 
-def show_about():
+def show_about(content_label):
     content_label.config(text="This is the About page content.")
 
-def show_blogs():
+def show_blogs(content_label):
     content_label.config(text="Check out our latest blogs here.")
 
-def show_services():
+def show_services(content_label):
     content_label.config(text="Explore our services and offerings.")
 
-def show_contact():
+def show_contact(content_label):
     content_label.config(text="Contact us for any inquiries or assistance.")
 
 def set_bg_image():
@@ -44,6 +44,10 @@ bg_label = tk.Label(root)
 bg_label.pack(fill="both", expand=True)
 set_bg_image()
 
+# Content Label
+content_label = tk.Label(root, text="", font=('Courier New', 18), wraplength=600, justify=tk.LEFT, padx=20, pady=20, fg='black', bg='white')
+content_label.pack(padx=20, pady=20)
+
 # Navbar Frame with curved edges
 navbar_frame = tk.Frame(bg_label, bg='#016A70', bd=5, relief=tk.GROOVE, borderwidth=2, pady=2)
 navbar_frame.pack(side=tk.TOP, fill=tk.X)
@@ -55,19 +59,19 @@ style.map("TLabel", background=[('active', '#5DADE2')])
 
 about_label = ttk.Label(navbar_frame, text="ABOUT", cursor="hand2", style="TLabel")
 about_label.pack(side=tk.LEFT, padx=5)
-about_label.bind("<Button-1>", lambda e: show_about())
+about_label.bind("<Button-1>", lambda e: show_about(content_label))
 
 blogs_label = ttk.Label(navbar_frame, text="BLOGS", cursor="hand2", style="TLabel")
 blogs_label.pack(side=tk.LEFT, padx=5)
-blogs_label.bind("<Button-1>", lambda e: show_blogs())
+blogs_label.bind("<Button-1>", lambda e: show_blogs(content_label))
 
 services_label = ttk.Label(navbar_frame, text="SERVICES", cursor="hand2", style="TLabel")
 services_label.pack(side=tk.LEFT, padx=5)
-services_label.bind("<Button-1>", lambda e: show_services())
+services_label.bind("<Button-1>", lambda e: show_services(content_label))
 
 contact_label = ttk.Label(navbar_frame, text="CONTACT", cursor="hand2", style="TLabel")
 contact_label.pack(side=tk.LEFT, padx=5)
-contact_label.bind("<Button-1>", lambda e: show_contact())
+contact_label.bind("<Button-1>", lambda e: show_contact(content_label))
 
 # Run the Tkinter event loop
 root.mainloop()

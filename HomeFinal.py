@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
 
+
+content_label=None
 def show_about():
     content_label.config(text="This is the About page content.")
 
@@ -20,7 +22,7 @@ def set_bg_image():
     desktop_height = root.winfo_screenheight()
 
     # Load the image and resize it to the desktop size
-    image = Image.open(r".\images\img1.png")  # Use raw string and backslashes
+    image = Image.open(r".\assets\img1.png")  # Use raw string and backslashes
     image = image.resize((desktop_width, desktop_height))
 
     # Create an image with an alpha channel for opacity
@@ -100,10 +102,10 @@ section_container = tk.Frame(root, bg="white")
 section_container.pack(pady=20)
 
 # Create frames for each section with images and navigation buttons
-create_section_frame(r".\images\hotel.png", "Hotel")
-create_section_frame(r".\images\think.png", "Can't Decide here we are to help")
-create_section_frame(r".\images\services.png", "SERVICES")
-create_section_frame(r".\images\contact.png", "CONTACT")
+create_section_frame(r".\assets\hotel.png", "Hotel")
+create_section_frame(r".\assets\think.png", "Can't Decide here we are to help")
+create_section_frame(r".\assets\services.png", "SERVICES")
+create_section_frame(r".\assets\contact.png", "CONTACT")
 
 # Run the Tkinter event loop
 root.mainloop()

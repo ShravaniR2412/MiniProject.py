@@ -3,15 +3,12 @@ from tkinter import *
 from PIL import Image, ImageTk
 
 def fetch_destination_details(destination_name):
-
-    def __init__(self, root):
-        self.root = root
     # Replace these with your actual MySQL database connection details
     db_config = {
-        'host':"localhost",
-        'user':"root",
-        'password':"shravani0212",
-        'database':"login"
+        'host': "localhost",
+        'user': "root",
+        'password': "shravani0212",
+        'database': "login"
     }
 
     connection = mysql.connector.connect(**db_config)
@@ -28,6 +25,8 @@ def fetch_destination_details(destination_name):
     return destination_details
 
 def display_destination(destination_name):
+    # destination_label = tk.Label(new_window, text=f"Welcome to {destination.capitalize()}!", font=('Courier New', 23, 'bold'), fg='white', bg='#016A70', bd=10, relief=tk.GROOVE)
+    # destination_label.pack(pady=20)
     # Fetch destination details from the database
     destination_details = fetch_destination_details(destination_name)
 
@@ -35,42 +34,28 @@ def display_destination(destination_name):
         # Create the main Tkinter window
         root = Tk()
         root.title(f"{destination_name} Details")
-        root.geometry("800x600")
 
-        # # Destination Image
-        # img_path = destination_details[-1]  # Replace with the actual path to your destination image
-        # img = Image.open(img_path)
-        # img = img.resize((550, 400))
-        # img_tk = ImageTk.PhotoImage(img)
+        # Set the window size to cover the full width of the desktop
+        screen_width = root.winfo_screenwidth()
+        root.geometry(f"{screen_width}x600")
 
-        # image_label = Label(root, image=img_tk)
-        # image_label.photo = img_tk  # To prevent garbage collection
-        # image_label.pack()
+       
 
-        # image_frame = Frame(root)
-        # image_frame.pack(pady=20)
+        # Destination Details Frame
+        details_frame = Frame(root, pady=20, bg="white", bd=5, relief=SOLID)
+        details_frame.place(relx=0.5, rely=0.5, anchor=CENTER)
 
-        # img_path = destination_details[-1]
-        # original_image = PhotoImage(file=img_path)
-        # resized_image = original_image.subsample(2)  # Subsample for resizing to 200x200 pixels
-
-        # image_label = Label(image_frame, image=resized_image)
-        # image_label.photo = resized_image  # To prevent garbage collection
-        # image_label.pack(side=LEFT, padx=10)
-
-
-        # Destination Details
-        details_frame = Frame(root, pady=20)
-        details_frame.pack()
-
-        title_label = Label(details_frame, text=destination_details[0], font=("Helvetica", 16, "bold"))
+        title_label = Label(details_frame, text=destination_details[0], font=("Arial", 20, "bold"), fg="green", bg="white", anchor="w")
         title_label.pack()
 
         for label, value in zip(["Destination: ", "Famous For:", "Located At:", "Famous Food:", "Places to Visit:"], destination_details[1:]):
-            detail_label = Label(details_frame, text=f"{label} {value}", font=("Helvetica", 12))
+            detail_label = Label(details_frame, text=f"{label} {value}", font=("Helvetica", 14), fg="green", bg="white", anchor="w")
             detail_label.pack()
 
         # Run the Tkinter event loop
         root.mainloop()
     else:
         print(f"Details for {destination_name} not found in the database.")
+
+# Call the display_destination function with a specific destination
+# display_destination("Paris")

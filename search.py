@@ -1,6 +1,17 @@
 import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
+from info import display_destination
+
+content_label = None
+
+# List of destinations
+destinations = [
+    "Paris", "new york", "tokyo", "rome", "barcelona","Kyoto",
+    "sydney", "london", "dubai", "rio de janeiro", "cape town",
+    "singapore", "kyoto", "amsterdam", "vancouver", "prague",
+    "bali", "edinburgh", "istanbul", "san francisco", "rajasthan"
+]
 
 def show_about():
     content_label.config(text="This is the About page content.")
@@ -37,6 +48,11 @@ def open_destination_page(destination):
     bg_label = tk.Label(new_window, image=photo)
     bg_label.image = photo
     bg_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+    # Add content_label
+    content_label = tk.Label(bg_label, text="", font=('Courier New', 18), wraplength=800, justify="left", fg='black', bg='#9AD0C2', bd=10, relief=tk.GROOVE)
+    content_label.place(relx=0.5, rely=0.7, anchor=tk.CENTER)
+
     
     destination_label = tk.Label(new_window, text=f"Welcome to {destination.capitalize()}!", font=('Courier New', 23, 'bold'), fg='white', bg='#016A70', bd=10, relief=tk.GROOVE)
     destination_label.pack(pady=20)
@@ -45,11 +61,16 @@ def open_destination_page(destination):
 
 
 def search_destination():
-    query = search_entry.get("1.0", "end-1c").lower()  # Get the text from the Text widget
+    query = search_entry.get("1.0", "end-1c") # Get the text from the Text widget
+    # print(query)
     if query in destinations:
-        open_destination_page(query)
+        # open_destination_page(query)
+        display_destination(query)
+        
+        
     else:
-        content_label.config(text="Destination not found. Please try again.")
+        # content_label.config(text="Destination not found. Please try again.")
+        print('no destinations')
 
 def set_bg_image():
     global photo  # Declare photo as a global variable
@@ -58,7 +79,7 @@ def set_bg_image():
     desktop_height = root.winfo_screenheight()
 
     # Load the image and resize it to the desktop size
-    image = Image.open(r"C:\Users\Admin\Desktop\bg.jpg")  # Replace with your image path
+    image = Image.open(r"bg.jpg")  # Replace with your image path
     image = image.resize((desktop_width, desktop_height))
 
     # Create an image with an alpha channel for opacity
@@ -85,7 +106,7 @@ def set_bg_image():
     search_entry.place(relx=0.5, rely=0.45, anchor=tk.CENTER, width=500)  # Increased width
 
     # Add a search button
-    search_button = ttk.Button(bg_label, text="SEARCH", command=search_destination, style="TButton")
+    search_button = ttk.Button(bg_label, text="SEARCH", command=lambda: search_destination() , style="TButton" )
     search_button.place(relx=0.5, rely=0.55, anchor=tk.CENTER)
 
 # Main Tkinter window
@@ -122,13 +143,7 @@ contact_label = ttk.Label(navbar_frame, text="CONTACT", cursor="hand2", style="T
 contact_label.pack(side=tk.LEFT, padx=5)
 contact_label.bind("<Button-1>", lambda e: show_contact())
 
-# List of destinations
-destinations = [
-    "paris", "new york", "tokyo", "rome", "barcelona",
-    "sydney", "london", "dubai", "rio de janeiro", "cape town",
-    "singapore", "kyoto", "amsterdam", "vancouver", "prague",
-    "bali", "edinburgh", "istanbul", "san francisco", "rajasthan"
-]
+
 
 # Style for the search button
 style.configure("TButton", font=('Courier New', 15, 'bold'), foreground='#016A70', background='#016A70', borderwidth=5, relief="ridge")
