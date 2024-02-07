@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 import mysql.connector
+import subprocess
 
 
 db = mysql.connector.connect(
@@ -26,11 +27,16 @@ def sign_up():
         db.commit()
 
         messagebox.showinfo("Registration Successful", "Welcome, " + username + "!")
+        open_login_window()
+
 
     except mysql.connector.Error as err:
         # Handle database errors
         messagebox.showerror("Registration Failed", "Error: {}".format(err))
 
+def open_login_window():
+    # Execute the login.py script
+    subprocess.run(["python", "login.py"])
 
 def on_enter(e):
     e.widget.delete(0, 'end')

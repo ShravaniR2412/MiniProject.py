@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 import mysql.connector
+import subprocess
 
 
 db = mysql.connector.connect(
@@ -22,8 +23,14 @@ def sign_in():
 
     if user_data:
         messagebox.showinfo("Login Successful", "Welcome, " + username + "!")
+        open_home_window()
     else:
         messagebox.showerror("Login Failed", "Invalid username or password")
+
+
+def open_home_window():
+    # Execute the login.py script
+    subprocess.run(["python", "HomeFinal.py"])
 
 root = Tk()
 root.title('Login')

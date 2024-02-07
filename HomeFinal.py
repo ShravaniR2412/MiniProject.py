@@ -1,6 +1,9 @@
 import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
+import subprocess
+
+
 
 
 content_label=None
@@ -37,6 +40,12 @@ def set_bg_image():
     welcome_label = tk.Label(bg_label, text="WELCOME TO TRAVEL-BUDDY", font=('Courier New', 35, 'bold'), fg='white', bg='#016A70', bd=10, relief=tk.GROOVE)
     welcome_label.place(relx=0.5, rely=0.15, anchor=tk.CENTER)
 
+
+def open_search_window():
+    # Execute the login.py script
+    subprocess.run(["python", "search.py"])
+
+    
 def create_section_frame(image_path, section_name):
     section_frame = tk.Frame(section_container, bg="white")
     section_frame.pack(side=tk.LEFT, padx=15)  # Align sections horizontally
@@ -50,7 +59,11 @@ def create_section_frame(image_path, section_name):
     section_label.pack(pady=10)
 
     # Add button for navigation
-    nav_button = ttk.Button(section_frame, text=f"Go to {section_name}", command=lambda: navigate_to_section(section_name))
+    if section_name == "Can't Decide here we are to help":
+        nav_button = ttk.Button(section_frame, text=f"Go to {section_name}", command=open_search_window)
+    else:
+        nav_button = ttk.Button(section_frame, text=f"Go to {section_name}", command=lambda: navigate_to_section(section_name))
+
     nav_button.pack(pady=10)
 
 def navigate_to_section(section_name):
@@ -106,6 +119,9 @@ create_section_frame(r".\assets\hotel.png", "Hotel")
 create_section_frame(r".\assets\think.png", "Can't Decide here we are to help")
 create_section_frame(r".\assets\services.png", "SERVICES")
 create_section_frame(r".\assets\contact.png", "CONTACT")
+
+
+
 
 # Run the Tkinter event loop
 root.mainloop()
