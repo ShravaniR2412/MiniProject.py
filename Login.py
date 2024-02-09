@@ -30,7 +30,14 @@ def sign_in():
 
 def open_home_window():
     # Execute the login.py script
-    subprocess.run(["python", "HomeFinal.py"])
+    subprocess.run(["python", "Home.py"])
+
+def on_enter(e):
+    e.widget.delete(0, 'end')
+
+def on_leave(e):
+    if e.widget.get() == '':
+        e.widget.insert(0, e.widget.placeholder)
 
 root = Tk()
 root.title('Login')
@@ -49,13 +56,20 @@ heading.place(x=100, y=5)
 
 user = Entry(frame, width=25, fg='black', border=0, bg="white", font=('Microsoft yaHei UI Light', 11))
 user.place(x=30, y=80)
+user.placeholder = 'Username'
 user.insert(0, 'Username')
+user.bind("<FocusIn>", on_enter)
+user.bind("<FocusOut>", on_leave)
 
 Frame(frame, width=295, height=2, bg='black').place(x=25, y=107)
 
 code = Entry(frame, width=25, fg='black', border=0, bg="white", font=('Microsoft yaHei UI Light', 11), show='*')
 code.place(x=30, y=130)
 code.insert(0, 'Password')
+code.placeholder = 'Username'
+code.insert(0, 'Username')
+code.bind("<FocusIn>", on_enter)
+code.bind("<FocusOut>", on_leave)
 
 Frame(frame, width=295, height=2, bg='black').place(x=25, y=157)
 

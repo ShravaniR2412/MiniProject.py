@@ -1,7 +1,10 @@
 import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
+import subprocess
 
+
+content_label=None
 def show_about():
     content_label.config(text="This is the About page content.")
 
@@ -20,7 +23,7 @@ def set_bg_image():
     desktop_height = root.winfo_screenheight()
 
     # Load the image and resize it to the desktop size
-    image = Image.open(r".\images\nature.png")  # Use raw string and backslashes
+    image = Image.open(r".\assets\nature.png")  # Use raw string and backslashes
     image = image.resize((desktop_width, desktop_height))
 
     # Create an image with an alpha channel for opacity
@@ -62,6 +65,10 @@ def create_card(image_path, place_name, description):
     description_label = tk.Label(card_frame, text=description, font=('Courier New', 8), bg="white", wraplength=120)
     description_label.pack(pady=(0, 2))
 
+def open_search_window():
+    # Execute the login.py script
+    subprocess.run(["python", "search.py"])
+
 def create_section_frame(image_path, section_name, width=200, height=150, bg_color="white"):
     section_frame = tk.Frame(section_container, bg=bg_color, width=width, height=height)
     section_frame.pack(side=tk.LEFT, padx=5, pady=5, fill="x", expand=True)  
@@ -75,7 +82,7 @@ def create_section_frame(image_path, section_name, width=200, height=150, bg_col
     section_label.pack(pady=5)
 
     # Add button for navigation
-    nav_button = ttk.Button(section_frame, text=f"Go to {section_name}", command=lambda: navigate_to_section(section_name))
+    nav_button = ttk.Button(section_frame, text=f"Go to {section_name}",  command=open_search_window)
     nav_button.pack(pady=2)
 
 def navigate_to_section(section_name):
@@ -127,14 +134,14 @@ section_container = tk.Frame(root, bg="#016A70")  # Set the background color her
 section_container.pack(pady=20, fill="both")
 
 # Create cards above the services frame
-create_card(r".\images\nature.png", "Beach Paradise", "Relax and unwind at our breathtaking beach resort.")
-create_card(r".\images\mountain.png", "Mountain Retreat", "Escape to the mountains for an adventure-filled getaway.")
-create_card(r".\images\city.png", "City Exploration", "Experience the vibrant culture and nightlife of bustling cities.")
-create_card(r".\images\history.png", "Historical Sites", "Explore ancient ruins and historical landmarks.")
+create_card(r".\assets\nature.png", "Beach Paradise", "Relax and unwind at our breathtaking beach resort.")
+create_card(r".\assets\mountain.png", "Mountain Retreat", "Escape to the mountains for an adventure-filled getaway.")
+create_card(r".\assets\city.png", "City Exploration", "Experience the vibrant culture and nightlife of bustling cities.")
+create_card(r".\assets\history.png", "Historical Sites", "Explore ancient ruins and historical landmarks.")
 
 # Create frames for each section with images and navigation buttons
-create_section_frame(r".\images\hotel.png", "HOTELS")
-create_section_frame(r".\images\think.png", "CAN'T DECIDE WHERE TO GO?")
+create_section_frame(r".\assets\hotel.png", "HOTELS")
+create_section_frame(r".\assets\think.png", "CAN'T DECIDE WHERE TO GO?")
 
 # Run the Tkinter event loop
 root.mainloop()

@@ -31,7 +31,9 @@ def open_destination_page(destination):
     
     #BY REMOVING THE COMMENTS OF BELOW TWO LINES THE NEW PAGE WILL OPEN HE SIZE OF DESKTOP WITH NEED TO BE MAXIMIZED
     # Set the size of the new window to match the desktop size
-    # new_window.geometry(f"{root.winfo_screenwidth()}x{root.winfo_screenheight()}")
+    # Set the size of the new window to match the desktop size
+    new_window.geometry(f"{root.winfo_screenwidth()}x{root.winfo_screenheight()}")
+  
     
     # Load background image for the destination
     bg_image_path = f"C:/Users/Admin/Desktop/Destination Images/{destination}.jpg"  # Replace with your image path
