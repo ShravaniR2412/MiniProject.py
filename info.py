@@ -1,6 +1,10 @@
 import mysql.connector
 from tkinter import *
+from tkinter import ttk
+import tkinter as tk
 from PIL import Image, ImageTk
+from weather import get_weather
+
 
 def fetch_destination_details(destination_name):
     # Replace these with your actual MySQL database connection details
@@ -52,8 +56,16 @@ def display_destination(destination_name):
             detail_label = Label(details_frame, text=f"{label} {value}", font=("Helvetica", 14), fg="green", bg="white", anchor="w")
             detail_label.pack()
 
+        search_button = ttk.Button(root, text="Check Weather", command=lambda: get_weather(destination_name))
+        search_button.grid(row=1, column=0, columnspan=2, pady=10, padx=10, sticky=tk.W+tk.E)
+
+        # Add a "Close" button to the window
+        close_button = Button(root, text="Close", command=root.destroy)
+        close_button.pack(pady=10)
+
         # Run the Tkinter event loop
         root.mainloop()
+
     else:
         print(f"Details for {destination_name} not found in the database.")
 

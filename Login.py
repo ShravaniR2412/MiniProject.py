@@ -3,7 +3,7 @@ from tkinter import messagebox
 import mysql.connector
 import subprocess
 
-
+# this is login page 
 db = mysql.connector.connect(
     host="localhost",
     user="root",
