@@ -13,11 +13,12 @@ user_preferences = {
 }
 
 db_config = {
-        'host': "localhost",
-        'user': "root",
-        'password': "shravani0212",
-        'database': "login"
-    }
+    'host': "localhost",
+    'user': "root",
+    'password': "shravani0212",
+    'database': "login"
+}
+
 # Function to connect to the MySQL database
 def connect_to_database():
     try:
@@ -26,109 +27,8 @@ def connect_to_database():
     except mysql.connector.Error as err:
         print(f"Error connecting to MySQL database: {err}")
         return None
-    
 
-def show_preferences(label):
-    selected_options = {}
-    if user_preferences["category"]:
-        selected_options["Category"] = user_preferences["category"].capitalize()
-    if user_preferences["preference"]:
-        selected_options["Preference"] = user_preferences["preference"].capitalize()
-    if user_preferences["season"]:
-        selected_options["Season"] = user_preferences["season"]
-    if user_preferences["duration"]:
-        selected_options["Duration"] = user_preferences["duration"]
-    if user_preferences["budget"]:
-        selected_options["Budget"] = user_preferences["budget"]
-    label.config(text="Your selected preferences:\n" + "\n".join([f"{key}: {value}" for key, value in selected_options.items()]))
-
-def select_category(event):
-    category = category_combobox.get()
-    user_preferences["category"] = category
-    show_preferences(label)
-
-def select_preference(preference):
-    user_preferences["preference"] = preference
-    show_preferences(label)
-
-def select_season(season):
-    user_preferences["season"] = season
-    show_preferences(label)
-
-def select_duration(duration):
-    user_preferences["duration"] = duration
-    show_preferences(label)
-
-def select_budget(budget):
-    user_preferences["budget"] = budget
-    show_preferences(label)
-
-def filter_options():
-    connection = connect_to_database()
-    if connection:
-        try:
-            cursor = connection.cursor()
-            query = "SELECT * FROM TravelPreferences WHERE "
-            conditions = []
-            for key, value in user_preferences.items():
-                if value:
-                    # Map keys to corresponding column names
-                    column_name = ""
-                    if key == "preference":
-                        column_name = "Category"
-                    elif key == "season":
-                        column_name = "Season"
-                    elif key == "duration":
-                        column_name = "Duration"
-                    elif key == "budget":
-                        column_name = "BudgetType"
-                    conditions.append(f"{column_name} = '{value}'")
-            if conditions:
-                query += " AND ".join(conditions)
-                cursor.execute(query)
-                destinations = cursor.fetchall()
-                # Display filtered destinations
-                print("Filtered Destinations:")
-                for destination in destinations:
-                    print(destination)
-            else:
-                print("No preferences selected.")
-            cursor.close()
-            connection.close()
-        except mysql.connector.Error as err:
-            print(f"Error executing query: {err}")
-    else:
-        print("Could not establish connection to the database.")
-
-
-def filter_destinations():
-    connection = connect_to_database()
-    if connection:
-        try:
-            cursor = connection.cursor()
-            query = "SELECT * FROM TravelPreferences WHERE "
-            conditions = []
-            for key, value in user_preferences.items():
-                if value:
-                    conditions.append(f"{key} = '{value}'")
-            if conditions:
-                query += " AND ".join(conditions)
-                cursor.execute(query)
-                destinations = cursor.fetchall()
-                # Display filtered destinations
-                print("Filtered Destinations:")
-                for destination in destinations:
-                    print(destination)
-            else:
-                print("No preferences selected.")
-            cursor.close()
-            connection.close()
-        except mysql.connector.Error as err:
-            print(f"Error executing query: {err}")
-    else:
-        print("Could not establish connection to the database.")
-
-# Function to set background image
+# Function to set background image and display UI elements
 def set_bg_image():
     global photo  # Declare photo as a global variable
     desktop_width = root.winfo_screenwidth()
@@ -150,6 +50,7 @@ def set_bg_image():
     welcome_label = tk.Label(bg_label, text="TRAVEL-BUDDY: Your seamless travel companion", font=('Courier New', 23, 'bold'), fg='white', bg='#016A70', bd=10, relief=tk.GROOVE)
     welcome_label.place(relx=0.5, rely=0.05, anchor=tk.CENTER)
 
+    # Create labels for selected preferences
     global label  # Make label a global variable so it can be accessed outside this function
     label = ttk.Label(bg_label, text="", font=('Courier New', 16))
     label.place(relx=0.5, rely=0.15, anchor=tk.CENTER)
@@ -210,8 +111,45 @@ def set_bg_image():
     filter_button = ttk.Button(bg_label, text="Filter Options", command=filter_options)
     filter_button.place(relx=0.5, rely=0.95, anchor=tk.CENTER)
 
-    # Show initial preferences
+# Function to select season
+def select_season(season):
+    user_preferences["season"] = season
     show_preferences(label)
+
+# Function to select preference
+def select_preference(preference):
+    user_preferences["preference"] = preference
+    show_preferences(label)
+
+# Function to select duration
+def select_duration(duration):
+    user_preferences["duration"] = duration
+    show_preferences(label)
+
+# Function to select budget
+def select_budget(budget):
+    user_preferences["budget"] = budget
+    show_preferences(label)
+
+# Function to show selected preferences
+def show_preferences(label):
+    selected_options = {}
+    if user_preferences["category"]:
+        selected_options["Category"] = user_preferences["category"].capitalize()
+    if user_preferences["preference"]:
+        selected_options["Preference"] = user_preferences["preference"].capitalize()
+    if user_preferences["season"]:
+        selected_options["Season"] = user_preferences["season"]
+    if user_preferences["duration"]:
+        selected_options["Duration"] = user_preferences["duration"]
+    if user_preferences["budget"]:
+        selected_options["Budget"] = user_preferences["budget"]
+    label.config(text="Your selected preferences:\n" + "\n".join([f"{key}: {value}" for key, value in selected_options.items()]))
+
+# Function to filter options
+def filter_options():
+    # Add your filter logic here
+    pass
 
 # Create the main application window
 root = tk.Tk()
@@ -224,9 +162,5 @@ bg_label.place(relwidth=1, relheight=1)
 
 # Set background image and display UI elements
 set_bg_image()
-
-# Create a listbox to display destination names
-# destination_listbox = tk.Listbox(bg_label, font=('Courier New', 12), width=50, height=15)
-# destination_listbox.place(relx=0.5, rely=0.25, anchor=tk.CENTER)
 
 root.mainloop()
