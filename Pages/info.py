@@ -56,6 +56,12 @@ def display_destination(destination_name):
             detail_label = Label(details_frame, text=f"{label} {value}", font=("Helvetica", 14), fg="green", bg="white", anchor="w")
             detail_label.pack()
 
+            
+        # button change     
+        # style = ttk.Style()
+        # style.configure("TLabel", font=('Courier New', 15, 'bold'), foreground='white', background='#016A70')
+        # style.map("TLabel", background=[('active', '#5DADE2')])
+
         search_button = ttk.Button(root, text="Check Weather", command=lambda: get_weather(destination_name))
         search_button.grid(row=1, column=0, columnspan=2, pady=10, padx=10, sticky=tk.W+tk.E)
 
