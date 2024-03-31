@@ -46,7 +46,7 @@ def set_bg_image():
     # Add padding, border, and background color
     lorem_label.config(padx=10, pady=10, relief=tk.RAISED, bd=2)
 
-def create_card(image_path, place_name, description):
+def create_card(image_path, place_name, description,nxtpg):
     card_frame = tk.Frame(section_container, bg="white", bd=2, relief=tk.RAISED)
     card_frame.pack(side=tk.LEFT, padx=5, pady=5, fill="x", expand=True)  # Pack the card frames horizontally
 
@@ -65,9 +65,29 @@ def create_card(image_path, place_name, description):
     description_label = tk.Label(card_frame, text=description, font=('Courier New', 8), bg="white", wraplength=120)
     description_label.pack(pady=(0, 2))
 
+     # Add button
+    button = tk.Button(card_frame, text="More Info", command=nxtpg)
+    button.pack(pady=(0, 2))
+
 def open_search_window():
     # Execute the login.py script
     subprocess.run(["python", "Pages/search.py"])
+
+def open_beach_window():
+    # Execute the login.py script
+    subprocess.run(["python", "Pages/beach.py"])
+
+def open_city_window():
+    # Execute the login.py script
+    subprocess.run(["python", "Pages/city.py"])
+
+def open_history_window():
+    # Execute the login.py script
+    subprocess.run(["python", "Pages/history.py"])
+
+def open_mountains_window():
+    # Execute the login.py script
+    subprocess.run(["python", "Pages/mountains.py"])
 
 def create_section_frame(image_path, section_name, width=200, height=150, bg_color="white"):
     section_frame = tk.Frame(section_container, bg=bg_color, width=width, height=height)
@@ -134,10 +154,10 @@ section_container = tk.Frame(root, bg="#016A70")  # Set the background color her
 section_container.pack(pady=20, fill="both")
 
 # Create cards above the services frame
-create_card(r".\assets\nature.png", "Beach Paradise", "Relax and unwind at our breathtaking beach resort.")
-create_card(r".\assets\mountain.png", "Mountain Retreat", "Escape to the mountains for an adventure-filled getaway.")
-create_card(r".\assets\city.png", "City Exploration", "Experience the vibrant culture and nightlife of bustling cities.")
-create_card(r".\assets\history.png", "Historical Sites", "Explore ancient ruins and historical landmarks.")
+create_card(r".\assets\nature.png", "Beach Paradise", "Relax and unwind at our breathtaking beach resort.", open_beach_window)
+create_card(r".\assets\mountain.png", "Mountain Retreat", "Escape to the mountains for an adventure-filled getaway.", open_mountains_window)
+create_card(r".\assets\city.png", "City Exploration", "Experience the vibrant culture and nightlife of bustling cities.", open_city_window)
+create_card(r".\assets\history.png", "Historical Sites", "Explore ancient ruins and historical landmarks.", open_history_window)
 
 # Create frames for each section with images and navigation buttons
 create_section_frame(r".\assets\hotel.png", "HOTELS")
