@@ -9,13 +9,14 @@ def show_about():
     content_label.config(text="This is the About page content.")
 
 def show_blogs():
-    content_label.config(text="Check out our latest blogs here.")
+    subprocess.run(["python", "Blogs.py"])
 
 def show_services():
-    content_label.config(text="Explore our services and offerings.")
+    subprocess.run(["python", "AddBlog.py"])
 
-def show_contact():
-    content_label.config(text="Contact us for any inquiries or assistance.")
+def show_quiz():
+    subprocess.run(["python", "filter.py"])
+
 
 def set_bg_image():
     global photo  # Declare photo as a global variable
@@ -39,9 +40,8 @@ def set_bg_image():
     welcome_label.place(relx=0.5, rely=0.2, anchor=tk.CENTER)
 
     # Add Lorem Ipsum text at the right side of the page
-    lorem_label = tk.Label(bg_label, text="Welcome to TRAVEL-BUDDY, your ultimate destination for unforgettable travel experiences. Whether you're seeking the serenity of pristine beaches, the adventure of rugged mountains, or the charm of bustling cities, we have the perfect journey waiting for you.", 
-                            font=('Courier New', 13), fg='white', bg='#016A70', wraplength=400)
-    lorem_label.place(relx=0.75, rely=0.4, anchor='n')
+    lorem_label = tk.Label(bg_label, text="Welcome to TRAVEL-BUDDY, your ultimate destination for unforgettable travel experiences. Whether you're seeking the serenity of pristine beaches, the adventure of rugged mountains, or the charm of bustling cities, we have the perfect journey waiting for you.", font=('Courier New', 13), fg='white', bg='#016A70', wraplength=400)
+    lorem_label.place(relx=0.5, rely=0.4, anchor='n')
 
     # Add padding, border, and background color
     lorem_label.config(padx=10, pady=10, relief=tk.RAISED, bd=2)
@@ -71,25 +71,29 @@ def create_card(image_path, place_name, description,nxtpg):
 
 def open_search_window():
     # Execute the login.py script
-    subprocess.run(["python", "Pages/search.py"])
+    subprocess.run(["python", "search.py"])
+
+def open_hotel_window():
+    # Execute the login.py script
+    subprocess.run(["python", "hotels.py"])
 
 def open_beach_window():
     # Execute the login.py script
-    subprocess.run(["python", "Pages/beach.py"])
+    subprocess.run(["python", "beach.py"])
 
 def open_city_window():
     # Execute the login.py script
-    subprocess.run(["python", "Pages/city.py"])
+    subprocess.run(["python", "city.py"])
 
 def open_history_window():
     # Execute the login.py script
-    subprocess.run(["python", "Pages/history.py"])
+    subprocess.run(["python", "history.py"])
 
 def open_mountains_window():
     # Execute the login.py script
-    subprocess.run(["python", "Pages/mountains.py"])
+    subprocess.run(["python", "mountains.py"])
 
-def create_section_frame(image_path, section_name, width=200, height=150, bg_color="white"):
+def create_section_frame(image_path, section_name,nxtpg, width=200, height=150, bg_color="white"):
     section_frame = tk.Frame(section_container, bg=bg_color, width=width, height=height)
     section_frame.pack(side=tk.LEFT, padx=5, pady=5, fill="x", expand=True)  
 
@@ -102,7 +106,7 @@ def create_section_frame(image_path, section_name, width=200, height=150, bg_col
     section_label.pack(pady=5)
 
     # Add button for navigation
-    nav_button = ttk.Button(section_frame, text=f"Go to {section_name}",  command=open_search_window)
+    nav_button = ttk.Button(section_frame, text=f"Go to {section_name}",  command=nxtpg)
     nav_button.pack(pady=2)
 
 def navigate_to_section(section_name):
@@ -110,10 +114,10 @@ def navigate_to_section(section_name):
         show_about()
     elif section_name == "BLOGS":
         show_blogs()
-    elif section_name == "SERVICES":
+    elif section_name == "ADD_BLOG":
         show_services()
-    elif section_name == "CONTACT":
-        show_contact()
+    elif section_name == "QUIZ":
+        show_quiz()
 
 # Main Tkinter window
 root = tk.Tk()
@@ -141,13 +145,13 @@ blogs_label = ttk.Label(navbar_frame, text="BLOGS", cursor="hand2", style="TLabe
 blogs_label.pack(side=tk.LEFT, padx=5)
 blogs_label.bind("<Button-1>", lambda e: navigate_to_section("BLOGS"))
 
-services_label = ttk.Label(navbar_frame, text="SERVICES", cursor="hand2", style="TLabel")
+services_label = ttk.Label(navbar_frame, text="ADD BLOG", cursor="hand2", style="TLabel")
 services_label.pack(side=tk.LEFT, padx=5)
-services_label.bind("<Button-1>", lambda e: navigate_to_section("SERVICES"))
+services_label.bind("<Button-1>", lambda e: navigate_to_section("ADD_BLOG"))
 
-contact_label = ttk.Label(navbar_frame, text="CONTACT", cursor="hand2", style="TLabel")
+contact_label = ttk.Label(navbar_frame, text="QUIZ", cursor="hand2", style="TLabel")
 contact_label.pack(side=tk.LEFT, padx=5)
-contact_label.bind("<Button-1>", lambda e: navigate_to_section("CONTACT"))
+contact_label.bind("<Button-1>", lambda e: navigate_to_section("QUIZ"))
 
 # Container for sections
 section_container = tk.Frame(root, bg="#016A70")  # Set the background color here
@@ -160,8 +164,24 @@ create_card(r".\assets\city.png", "City Exploration", "Experience the vibrant cu
 create_card(r".\assets\history.png", "Historical Sites", "Explore ancient ruins and historical landmarks.", open_history_window)
 
 # Create frames for each section with images and navigation buttons
-create_section_frame(r".\assets\hotel.png", "HOTELS")
-create_section_frame(r".\assets\think.png", "CAN'T DECIDE WHERE TO GO?")
+create_section_frame(r".\assets\hotel.png", "HOTELS",open_hotel_window)
+create_section_frame(r".\assets\think.png", "CAN'T DECIDE WHERE TO GO?",open_search_window)
+
+
+def open_chatbot():
+    subprocess.run(["python", "chat.py"])
+    
+
+# Load the chatbot icon image
+chatbot_icon = Image.open("assets/cht.png")  # Replace "path_to_your_icon_image.png" with the actual path to your icon image file
+chatbot_icon = chatbot_icon.resize((50, 50))  # Adjust size as needed
+chatbot_photo = ImageTk.PhotoImage(chatbot_icon)
+
+# Create the chatbot button
+chatbot_button = tk.Button(root, image=chatbot_photo, command=open_chatbot, borderwidth=0)
+chatbot_button.place(x=20, y=50)  # Adjust the coordinates as needed
+chatbot_button.image = chatbot_photo  # Keep a reference to avoid garbage collection
+
 
 # Run the Tkinter event loop
 root.mainloop()

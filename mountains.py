@@ -1,24 +1,24 @@
 import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
-
+from info import display_destination
 
 def explore_place(place_name):
     print(f"Exploring {place_name}")
 
 
-city_recommendations = [
-    ("assets/newyork.png", "New York City", "Experience the vibrant energy of the Big Apple."),
-    ("assets/london.png", "London", "Discover the rich history and cultural diversity of London."),
-    ("assets/tokyo.png", "Tokyo", "Immerse yourself in the futuristic cityscape of Tokyo."),
-    ("assets/paris.png", "Paris", "Explore the romantic charm and iconic landmarks of Paris."),
-    ("assets/dubai.png", "Dubai", "Indulge in luxury and innovation in the dynamic city of Dubai."),
-    ("assets/singapore.png", "Singapore", "Enjoy the blend of tradition and modernity in Singapore.")
+mountain_recommendations = [
+    ("assets/swiss.png", "Swiss Alps", "Experience the breathtaking beauty of the Swiss Alps."),
+    ("assets/rockymou.png", "Rocky Mountains", "Embark on an adventure in the majestic Rocky Mountains."),
+    ("assets/himalayas.png", "Himalayas", "Discover the awe-inspiring landscapes of the Himalayas."),
+    ("assets/andes.png", "Andes Mountains", "Explore the diverse ecosystems of the Andes Mountains."),
+    ("assets/everest.png", "Mount Everest", "Stand in awe of the world's highest peak, Mount Everest."),
+    ("assets/fuji.png", "Mount Fuji", "Witness the iconic beauty of Japan's Mount Fuji.")
 ]
 
 # Main Tkinter window
 root = tk.Tk()
-root.title("City Recommendations")
+root.title("Mountain Recommendations")
 
 # Background color
 root.configure(bg="lightblue")
@@ -44,25 +44,25 @@ services_label.pack(side=tk.LEFT, padx=5)
 contact_label = ttk.Label(navbar_frame, text="CONTACT", cursor="hand2", style="TLabel")
 contact_label.pack(side=tk.LEFT, padx=5)
 
-welcome_label = tk.Label(root, text="WELCOME TO CITY EXPLORER", font=('Courier New', 30, 'bold'), fg='white', bg='#016A70', bd=10, relief=tk.GROOVE)
+welcome_label = tk.Label(root, text="WELCOME TO MOUNTAIN EXPLORER", font=('Courier New', 30, 'bold'), fg='white', bg='#016A70', bd=10, relief=tk.GROOVE)
 welcome_label.pack(fill=tk.X,pady=10)
 
-# Container for city cards
+# Container for mountain cards
 section_container = tk.Frame(root, bg="lightblue")  
 section_container.pack(pady=20, fill="both")
 
 
-for idx, city_info in enumerate(city_recommendations):
+for idx, mountain_info in enumerate(mountain_recommendations):
     if idx % 3 == 0:  
         row_frame = tk.Frame(section_container, bg="lightblue")
         row_frame.pack(fill="x")
 
-    image_path, city_name, description = city_info
+    image_path, mountain_name, description = mountain_info
     card_frame = tk.Frame(row_frame, bg="white", bd=2, relief=tk.RAISED)
     card_frame.pack(side=tk.LEFT, padx=5, pady=5, expand=True)  
 
-    city_label = tk.Label(card_frame, text=city_name, font=('Courier New', 10, 'bold'), bg="white")
-    city_label.pack(pady=(0, 2))
+    mountain_label = tk.Label(card_frame, text=mountain_name, font=('Courier New', 10, 'bold'), bg="white")
+    mountain_label.pack(pady=(0, 2))
 
     card_image = Image.open(image_path)
     card_image = card_image.resize((300, 100))  # Resize image as needed
@@ -74,7 +74,7 @@ for idx, city_info in enumerate(city_recommendations):
     description_label = tk.Label(card_frame, text=description, font=('Courier New', 8), bg="white", wraplength=120)
     description_label.pack(pady=(0, 2))
 
-    explore_button = ttk.Button(card_frame, text="Explore", command=lambda city_name=city_name: explore_place(city_name))
+    explore_button = ttk.Button(card_frame, text="Explore",command=lambda  mountain=mountain_name: display_destination(mountain), style="TButton")
     explore_button.pack(pady=5)
 
 # Run the Tkinter event loop

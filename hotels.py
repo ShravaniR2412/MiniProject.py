@@ -8,8 +8,8 @@ def fetch_hotel_data(order_by):
     conn = mysql.connector.connect(
         host="localhost",
         user="root",
-        password="Mahvish#04",
-        database="travel_buddy"
+        password="shravani0212",
+        database="login"
     )
     cursor = conn.cursor()
     cursor.execute(f"SELECT hotel_name, description, rating, cost, image_path FROM hotel WHERE city_name = 'Mumbai' ORDER BY {order_by}")

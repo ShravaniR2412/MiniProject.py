@@ -3,7 +3,7 @@ from tkinter import *
 from tkinter import ttk
 import tkinter as tk
 from PIL import Image, ImageTk
-from Pages.weather import get_weather
+from weather import get_weather
 
 
 def fetch_destination_details(destination_name):

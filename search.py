@@ -2,16 +2,17 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
 from info import display_destination
+import mysql.connector
 
 content_label = None
 
 # List of destinations
-destinations = [
-    "Paris","Matheran","new york", "tokyo", "rome", "barcelona","Kyoto",
-    "sydney", "london", "dubai", "rio de janeiro", "cape town",
-    "singapore", "kyoto", "amsterdam", "vancouver", "prague",
-    "bali", "edinburgh", "istanbul", "san francisco", "rajasthan"
-]
+# destinations = [
+#     "Paris","Matheran","new york", "tokyo", "rome", "barcelona","Kyoto",
+#     "sydney", "london", "dubai", "rio de janeiro", "cape town",
+#     "singapore", "kyoto", "amsterdam", "vancouver", "prague",
+#     "bali", "edinburgh", "istanbul", "san francisco", "rajasthan"
+# ]
 
 def show_about():
     content_label.config(text="This is the About page content.")
@@ -28,6 +29,7 @@ def show_contact():
 def open_destination_page(destination):
     new_window = tk.Toplevel(root)
     new_window.title(destination.capitalize())
+    
     
     #BY REMOVING THE COMMENTS OF BELOW TWO LINES THE NEW PAGE WILL OPEN HE SIZE OF DESKTOP WITH NEED TO BE MAXIMIZED
     # Set the size of the new window to match the desktop size
@@ -62,17 +64,44 @@ def open_destination_page(destination):
     # Add more details about the destination here if needed
 
 
+def fetch_destination_details(destination_name):
+    # db_config = {
+    #     'host': "localhost",
+    #     'user': "root",
+    #     'password': "Mahvish#04",
+    #     'database': "travel_buddy"
+    # }
+
+    db_config = {
+        'host': "localhost",
+        'user': "root",
+        'password': "shravani0212",
+        'database': "login"
+     }
+
+    connection = mysql.connector.connect(**db_config)
+    cursor = connection.cursor()
+
+    query = f"SELECT * FROM destinations WHERE name = '{destination_name}'"
+    cursor.execute(query)
+    destination_details = cursor.fetchone()
+
+    connection.close()
+
+    return destination_details
+
+
 def search_destination():
-    query = search_entry.get("1.0", "end-1c") # Get the text from the Text widget
-    # print(query)
-    if query in destinations:
-        # open_destination_page(query)
-        display_destination(query)
-        
-        
+    query = search_entry.get("1.0", "end-1c").strip()  # Get the text from the Text widget and remove leading/trailing spaces
+    if query:  # Check if the query is not empty
+        destination_details = fetch_destination_details(query)
+        if destination_details:
+            display_destination(query)
+        else:
+            content_label.config(text=f"Destination '{query}' not found in the database.")
     else:
-        # content_label.config(text="Destination not found. Please try again.")
-        print('no destinations')
+        content_label.config(text="Please enter a destination.")
+
 
 def set_bg_image():
     global photo  # Declare photo as a global variable
@@ -114,6 +143,9 @@ def set_bg_image():
 # Main Tkinter window
 root = tk.Tk()
 root.title("Search")
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+root.geometry(f"{screen_width}x{screen_height}+0+0")
 
 # Background Image
 bg_label = tk.Label(root)
