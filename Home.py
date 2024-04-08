@@ -122,6 +122,9 @@ def navigate_to_section(section_name):
 # Main Tkinter window
 root = tk.Tk()
 root.title("Home")
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+root.geometry(f"{screen_width}x{screen_height}+0+0")
 
 # Background Image
 bg_label = tk.Label(root)

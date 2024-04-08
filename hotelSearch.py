@@ -8,8 +8,8 @@ def fetch_hotel_data(city_name):
     conn = mysql.connector.connect(
         host="localhost",
         user="root",
-        password="Mahvish#04",
-        database="travel_buddy"
+        password="shravani0212",
+        database="login"
     )
     cursor = conn.cursor()
     cursor.execute(f"SELECT property_name, hotel_facilities, hotel_rating, property_type FROM hotelsIndia WHERE city = '{city_name}'")
@@ -21,8 +21,8 @@ def fetch_hotel_details(hotel_name):
     conn = mysql.connector.connect(
         host="localhost",
         user="root",
-        password="Mahvish#04",
-        database="travel_buddy"
+        password="shravani02",
+        database="login"
     )
     cursor = conn.cursor()
     cursor.execute(f"SELECT * FROM hotelsIndia WHERE property_name = '{hotel_name}'")
@@ -181,13 +181,6 @@ update_button.pack(side=tk.LEFT, padx=5, pady=5)
 # Section container
 section_container = tk.Frame(root, bg="lightblue")
 section_container.pack(pady=20, fill="both")
-
-# Buttons for navigation
-next_button = ttk.Button(root, text="Next", command=next_page)
-next_button.pack(side=tk.RIGHT, padx=10, pady=10)
-
-back_button = ttk.Button(root, text="Back", command=previous_page)
-back_button.pack(side=tk.RIGHT, padx=10, pady=10)
 
 # Global variables
 hotel_data = []

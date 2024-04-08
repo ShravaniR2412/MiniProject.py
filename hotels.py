@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
 import mysql.connector
+import subprocess
 
 # Function to fetch hotel data from MySQL database
 def fetch_hotel_data(order_by):
@@ -16,6 +17,10 @@ def fetch_hotel_data(order_by):
     hotel_data = cursor.fetchall()
     conn.close()
     return hotel_data
+
+
+def open_hotelcity_window():
+    subprocess.run(["python", "hotelSearch.py"])
 
 def explore_place(place_name):
     print(f"Exploring {place_name}")
@@ -79,6 +84,9 @@ button2.pack(side=tk.LEFT, padx=10, pady=5)
 
 button3 = ttk.Button(button_frame, text="Ratings", style="Custom.TButton", command=sort_by_ratings)
 button3.pack(side=tk.LEFT, padx=10, pady=5)
+
+button3 = ttk.Button(button_frame, text="City", style="Custom.TButton", command=open_hotelcity_window)
+button3.pack(side=tk.LEFT, padx=40, pady=5)
 
 section_container = tk.Frame(root, bg="lightblue")
 section_container.pack(pady=20, fill="both")

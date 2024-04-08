@@ -8,7 +8,7 @@ def explore_place(beach_name):
 
 
 beach_recommendations = [
-    ("assets/maldives.png", "Maldives Beach", "Relax on the iconic beaches of Maldives."),
+    ("assets/maldives.png", "Maldives Beaches", "Relax on the iconic beaches of Maldives."),
     ("assets/waikki.png", "Waikiki Beach", "Enjoy the sun and surf at the world-famous Waikiki Beach in Honolulu, Hawaii."),
     ("assets/bondi.png", "Bondi Beach", "Experience the vibrant atmosphere of Bondi Beach in Sydney, Australia."),
     ("assets/cancun.png", "Cancun Beach", "Explore the beautiful beaches of Cancun, Mexico."),

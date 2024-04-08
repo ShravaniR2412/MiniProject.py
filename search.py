@@ -100,7 +100,8 @@ def search_destination():
         else:
             content_label.config(text=f"Destination '{query}' not found in the database.")
     else:
-        content_label.config(text="Please enter a destination.")
+        print("error")
+        # content_label.config(text="Please enter a destination.")
 
 
 def set_bg_image():
