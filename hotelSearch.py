@@ -21,7 +21,7 @@ def fetch_hotel_details(hotel_name):
     conn = mysql.connector.connect(
         host="localhost",
         user="root",
-        password="shravani02",
+        password="shravani0212",
         database="login"
     )
     cursor = conn.cursor()
