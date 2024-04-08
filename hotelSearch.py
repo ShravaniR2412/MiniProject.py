@@ -178,6 +178,13 @@ city_entry.pack(side=tk.LEFT, padx=5, pady=5)
 update_button = ttk.Button(city_input_frame, text="Search", command=update_hotels)
 update_button.pack(side=tk.LEFT, padx=5, pady=5)
 
+# Buttons for navigation
+next_button = ttk.Button(root, text="Next", command=next_page)
+next_button.pack(side=tk.RIGHT, padx=10, pady=10)
+
+back_button = ttk.Button(root, text="Back", command=previous_page)
+back_button.pack(side=tk.RIGHT, padx=10, pady=10)
+
 # Section container
 section_container = tk.Frame(root, bg="lightblue")
 section_container.pack(pady=20, fill="both")
